@@ -1,15 +1,8 @@
-from enum import Enum
-
 from fastapi import FastAPI
 
+from pydantic_models import ModelName, Item
 
 app = FastAPI()
-
-
-class ModelName(str, Enum):
-    alexnet = "alexnet"
-    resnet = "resnet"
-    lenet = "lenet"
 
 
 @app.get("/")
@@ -29,3 +22,8 @@ async def get_model(model_name: ModelName):
     if model_name.value == "lenet":
         return {"model_name": model_name, "message": "LeCNN all the images"}
     return {"model_name": model_name, "message": "Have some residuals"}
+
+
+@app.post("/items/")
+async def create_todo_items(item: Item):
+    return item
