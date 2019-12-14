@@ -1,6 +1,6 @@
 from enum import Enum
 
-from pydantic.main import BaseModel
+from pydantic import BaseModel
 
 
 class ModelName(str, Enum):
@@ -10,5 +10,6 @@ class ModelName(str, Enum):
 
 
 class Item(BaseModel):
+    id: int
     name: str
     description: str = None
