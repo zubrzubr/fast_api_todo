@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from tasks.pydantic_models import Item
+from tasks.schemas import Item
 from tasks.services import TaskService
 
 
