@@ -3,7 +3,7 @@ class TaskService(object):
         return item_id
 
     def add_item(self, item_obj):
-        return {'id': item_obj.id, 'description': item_obj.description, 'name': item_obj.name}
+        return item_obj
 
     def update_item(self, item_id):
         return item_id
