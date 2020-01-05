@@ -9,15 +9,19 @@ class TaskService(object):
         db.commit()
         return q
 
-    def add(self, db: Session, task: schemas.TaskCreate):
+    def add(self, db: Session, task: schemas.Task):
         task = models.Task(**task.dict())
         db.add(task)
         db.commit()
         db.refresh(task)
         return task
 
-    def update(self, item_id):
-        return item_id
+    def update(self, db: Session, task: schemas.Task, task_id: int):
+        q = db.query(models.Task).filter_by(id=task_id).update(task)
+        if not q:
+            return
+        db.commit()
+        return task
 
     def get_all(self, db: Session, skip, limit):
         return db.query(models.Task).offset(skip).limit(limit).all()

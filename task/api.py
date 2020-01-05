@@ -5,7 +5,6 @@ from sqlalchemy.orm import Session
 
 from database import get_db
 from task import schemas
-from task.schemas import TaskCreate
 from task.services import TaskService
 
 
@@ -23,13 +22,13 @@ async def get_tasks(skip: int = 0, limit: int = 100, db: Session = Depends(get_d
     return service.get_all(db=db, skip=skip, limit=limit)
 
 
-@router.put("/tasks/{task_id}")
-async def update_item(task_id: int):
-    return service.update(task_id)
+@router.patch("/tasks/{task_id}", response_model=schemas.Task)
+async def patch_item(task_id: int, task: schemas.Task, db: Session = Depends(get_db)):
+    return service.update(db=db, task=task, task_id=task_id)
 
 
 @router.post("/tasks", response_model=schemas.Task)
-async def add_item(task: TaskCreate, db: Session = Depends(get_db)):
+async def add_item(task: schemas.Task, db: Session = Depends(get_db)):
     return service.add(db=db, task=task)
 
 
