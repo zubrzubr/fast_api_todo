@@ -17,7 +17,7 @@ class TaskService(object):
     def update(self, item_id):
         return item_id
 
-    def get_all(self, db: Session, skip: int = 0, limit: int = 100):
+    def get_all(self, db: Session, skip, limit):
         return db.query(models.Task).offset(skip).limit(limit).all()
 
     def get(self, item_id):

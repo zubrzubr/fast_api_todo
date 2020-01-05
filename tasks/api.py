@@ -17,9 +17,8 @@ async def read_item(item_id: int):
 
 
 @router.get("/tasks")
-async def get_tasks(db: Session = Depends(get_db)):
-    # TODO Add optional params for limit and skip
-    return service.get_all(db=db)
+async def get_tasks(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    return service.get_all(db=db, skip=skip, limit=limit)
 
 
 @router.put("/tasks/{item_id}")
