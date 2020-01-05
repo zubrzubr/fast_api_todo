@@ -1,6 +1,9 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
 
-from tasks.schemas import Item
+from database import get_db
+from tasks import schemas
+from tasks.schemas import TaskCreate
 from tasks.services import TaskService
 
 
@@ -10,19 +13,25 @@ service = TaskService()
 
 @router.get("/tasks/{item_id}")
 async def read_item(item_id: int):
-    return service.get_item(item_id)
+    return service.get(item_id)
+
+
+@router.get("/tasks")
+async def get_tasks(db: Session = Depends(get_db)):
+    # TODO Add optional params for limit and skip
+    return service.get_all(db=db)
 
 
 @router.put("/tasks/{item_id}")
 async def update_item(item_id: int):
-    return service.update_item(item_id)
+    return service.update(item_id)
 
 
-@router.post("/tasks/")
-async def add_item(item: Item):
-    return service.add_item(item)
+@router.post("/tasks/", response_model=schemas.Task)
+async def add_item(task: TaskCreate, db: Session = Depends(get_db)):
+    return service.add(db=db, task=task)
 
 
 @router.delete("/tasks/{item_id}")
 async def update_item(item_id: int):
-    return service.delete_item(item_id)
+    return service.delete(item_id)
