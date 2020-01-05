@@ -2,13 +2,14 @@ from pydantic import BaseModel
 
 
 class TaskBase(BaseModel):
-    id: int
     name: str
     description: str = None
     is_done = bool
 
 
 class Task(TaskBase):
+    id = int
+
     class Config:
         orm_mode = True
 
