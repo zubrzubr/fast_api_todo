@@ -4,7 +4,7 @@ from database import Base
 
 
 class Task(Base):
-    __tablename__ = "tasks"
+    __tablename__ = "task"
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)

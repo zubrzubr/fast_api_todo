@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from tasks import schemas, models
+from task import schemas, models
 
 
 class TaskService(object):
@@ -20,5 +20,5 @@ class TaskService(object):
     def get_all(self, db: Session, skip, limit):
         return db.query(models.Task).offset(skip).limit(limit).all()
 
-    def get(self, item_id):
-        return item_id
+    def get(self, db: Session, task_id: int):
+        return db.query(models.Task).filter_by(id=task_id).one_or_none()

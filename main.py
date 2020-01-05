@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 from database import engine
-from tasks import api, models
+from task import api, models
 
 api_prefix = '/api'
 
