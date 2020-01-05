@@ -4,8 +4,10 @@ from task import schemas, models
 
 
 class TaskService(object):
-    def delete(self, item_id):
-        return item_id
+    def delete(self, db: Session, task_id: int):
+        q = db.query(models.Task).filter_by(id=task_id).delete()
+        db.commit()
+        return q
 
     def add(self, db: Session, task: schemas.TaskCreate):
         task = models.Task(**task.dict())
