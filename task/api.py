@@ -23,15 +23,15 @@ async def get_tasks(skip: int = 0, limit: int = 100, db: Session = Depends(get_d
 
 
 @router.patch("/tasks/{task_id}", response_model=schemas.Task)
-async def patch_item(task_id: int, task: schemas.Task, db: Session = Depends(get_db)):
+async def patch_item(task_id: int, task: schemas.TaskCreate, db: Session = Depends(get_db)):
     return service.update(db=db, task=task, task_id=task_id)
 
 
 @router.post("/tasks", response_model=schemas.Task)
-async def add_item(task: schemas.Task, db: Session = Depends(get_db)):
+async def add_item(task: schemas.TaskCreate, db: Session = Depends(get_db)):
     return service.add(db=db, task=task)
 
 
 @router.delete("/tasks/{task_id}")
-async def update_item(task_id: int, db: Session = Depends(get_db)):
+async def delete_item(task_id: int, db: Session = Depends(get_db)):
     return service.delete(db=db, task_id=task_id)

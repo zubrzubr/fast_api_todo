@@ -9,14 +9,14 @@ class TaskService(object):
         db.commit()
         return q
 
-    def add(self, db: Session, task: schemas.Task):
+    def add(self, db: Session, task: schemas.TaskCreate):
         task = models.Task(**task.dict())
         db.add(task)
         db.commit()
         db.refresh(task)
         return task
 
-    def update(self, db: Session, task: schemas.Task, task_id: int):
+    def update(self, db: Session, task: schemas.TaskCreate, task_id: int):
         q = db.query(models.Task).filter_by(id=task_id).update(task)
         if not q:
             return
