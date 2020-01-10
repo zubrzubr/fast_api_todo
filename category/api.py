@@ -14,6 +14,6 @@ async def get_categories(skip: int = 0, limit: int = 100, db: Session = Depends(
     return service.get_all(db=db, skip=skip, limit=limit)
 
 
-@router.post("/categories", response_model=schemas.Task)
+@router.post("/categories", response_model=schemas.CategoryCreate)
 async def add_task(category: schemas.Category, db: Session = Depends(get_db)):
     return service.add(db=db, category=category)
