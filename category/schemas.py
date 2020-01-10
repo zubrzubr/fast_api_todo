@@ -15,7 +15,7 @@ class CategoryCreate(CategoryBase):
 
 
 class Category(CategoryBase):
-    id = int
+    id: int
 
     class Config:
         orm_mode = True
