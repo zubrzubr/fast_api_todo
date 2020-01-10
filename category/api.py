@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -9,11 +11,11 @@ router = APIRouter()
 service = CategoryService()
 
 
-@router.get("/categories",  response_model=schemas.Category)
+@router.get("/categories",  response_model=List[schemas.Category])
 async def get_categories(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return service.get_all(db=db, skip=skip, limit=limit)
 
 
-@router.post("/categories", response_model=schemas.CategoryCreate)
-async def add_task(category: schemas.Category, db: Session = Depends(get_db)):
+@router.post("/categories", response_model=schemas.Category)
+async def add_category(category: schemas.CategoryCreate, db: Session = Depends(get_db)):
     return service.add(db=db, category=category)

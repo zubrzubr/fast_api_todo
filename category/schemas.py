@@ -7,7 +7,6 @@ from task.schemas import Task
 
 class CategoryBase(BaseModel):
     name: str
-    tasks: List[Task] = []
 
 
 class CategoryCreate(CategoryBase):
@@ -16,6 +15,7 @@ class CategoryCreate(CategoryBase):
 
 class Category(CategoryBase):
     id: int
+    tasks: List[Task] = []
 
     class Config:
         orm_mode = True
