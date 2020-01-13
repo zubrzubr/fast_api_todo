@@ -1,15 +1,11 @@
 from sqlalchemy.orm import Session
 
 from category import models, schemas
+from common.services import CrudService
 
 
-class CategoryService(object):
-    def get_all(self, db: Session, skip, limit):
-        return db.query(models.Category).offset(skip).limit(limit).all()
+class CategoryService(CrudService):
+    model = models.Category
 
     def add(self, db: Session, category: schemas.CategoryCreate):
-        category = models.Category(**category.dict())
-        db.add(category)
-        db.commit()
-        db.refresh(category)
-        return category
+        return super(CategoryService, self).add(db, category)

@@ -14,7 +14,7 @@ service = TaskService()
 
 @router.get("/tasks/{task_id}",  response_model=schemas.Task)
 async def get_task(task_id: int, db: Session = Depends(get_db)):
-    return service.get(db=db, task_id=task_id)
+    return service.get(db, task_id)
 
 
 @router.get("/tasks", response_model=List[schemas.Task])
@@ -34,4 +34,4 @@ async def add_task(task: schemas.TaskCreate, db: Session = Depends(get_db)):
 
 @router.delete("/tasks/{task_id}")
 async def delete_task(task_id: int, db: Session = Depends(get_db)):
-    return service.delete(db=db, task_id=task_id)
+    return service.delete(db, task_id)
